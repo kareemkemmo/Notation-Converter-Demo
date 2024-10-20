@@ -27,16 +27,16 @@ void Dlinkedlist::addFront(const string& e){
     new_node->elem = e;
     new_node->next = header->next;
     new_node->prev = header;
-    header->next = new_node;
     header->next->prev = new_node;
+    header->next = new_node;
 }
 void Dlinkedlist::addBack(const string& e){
     Dnode* new_node = new Dnode;
     new_node->elem = e;
     new_node->next = trailer;
     new_node->prev = trailer->prev;
-    trailer->prev = new_node;
     trailer->prev->next = new_node;
+    trailer->prev = new_node;
 }
 void Dlinkedlist::removeFront(){
     if (!empty()){
@@ -117,10 +117,18 @@ string NotationConverter::postfixToInfix(std::string inStr){
             //do nothing
         }
         else{// if any other char
-        //throw exception
+        throw invalid_argument("Invalid Charecters");//throw exception
         }
     };
-    return infix_format.front();//after converting all the operands and operation to infix format the operands would be reformed to infix as a single string at the top of the stack
+    string output_str;
+    //add the white space
+    for (int i = 0; i < infix_format.front().size(); i++){
+        output_str += infix_format.front()[i];
+        if ((infix_format.front()[i] != '(') && (infix_format.front()[i+1] != ')')){
+        output_str += " ";
+        }
+    }
+    return output_str;//after converting all the operands and operation to infix format the operands would be reformed to infix as a single string at the top of the stack
 }
 //the code for prefix to postfix is similar just with different formating in the new operand, iterating in the reverse order
 string NotationConverter::prefixToPostfix(std::string inStr){
@@ -142,10 +150,16 @@ string NotationConverter::prefixToPostfix(std::string inStr){
             //do nothing
         }
         else{// if any other char
-        //throw exception
+        throw invalid_argument("Invalid Charecters");//throw exception
         }
     };
-    return postfix_format.front();//after converting all the operands and operation to infix format the operands would be reformed to infix as a single string at the top of the stack
+    string output_str;
+    //add the white space
+    for (int i = 0; i < postfix_format.front().size(); i++){
+        output_str += postfix_format.front()[i];
+        output_str += " ";
+    }
+    return output_str;//after converting all the operands and operation to infix format the operands would be reformed to infix as a single string at the top of the stack
 }
 //the code for infix to prefix is the same as the rest with the difference being that the new operand is created with a ')' and refactors the 2 operands and operator before it
 string NotationConverter::infixToPrefix(std::string inStr){
@@ -174,10 +188,16 @@ string NotationConverter::infixToPrefix(std::string inStr){
             //do nothing
         }
         else{// if any other char
-        //throw exception
+        throw invalid_argument("Invalid Charecters");//throw exception
         }
     };
-    return prefix_format.front();//after converting all the operands and operation to infix format the operands would be reformed to infix as a single string at the top of the stack
+    string output_str;
+    //add the white space
+    for (int i = 0; i < prefix_format.front().size(); i++){
+        output_str += prefix_format.front()[i];
+        output_str += " ";
+    }
+    return output_str;//after converting all the operands and operation to infix format the operands would be reformed to infix as a single string at the top of the stack
 }
 string NotationConverter::infixToPostfix(std::string inStr){
     string prefix_str = infixToPrefix(inStr);
